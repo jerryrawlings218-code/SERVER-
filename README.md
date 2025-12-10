@@ -33,5 +33,10 @@ Main website
 - Scaling: Upgrade VPS; add LVE limits in WHM > CloudLinux Manager
 - Logs: /var/log/imunify360; WHM > Server Status; CF Dashboard
 - Client Test: Signup > Provision > Site via CF (green lock, fast load)
+# Should be blocked instantly (you’ll see 403 in Imunify logs)
+curl -A "sqlmap" http://yourdomain.com/index.php
+curl "http://yourdomain.com/?id=1+UNION+SELECT" -H "Accept:"
 
+# Should pass (legitimate request via Cloudflare)
+curl -H "User-Agent: Mozilla/5.0" -H "CF-Connecting-IP: 1.1.1.1" https://yourdomain.com/
 For issues: CloudLinux support (support@cloudlinux.com), CF docs (developers.cloudflare.com). Custom: Imunify > Rules for tuning.
